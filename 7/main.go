@@ -27,7 +27,7 @@ func main() {
 }
 
 func solve(lhs int, rhs []int) int {
-	for _, v := range parcioalSolve(rhs) {
+	for _, v := range partlySolve(rhs) {
 		if v == lhs {
 			return v
 		}
@@ -35,21 +35,21 @@ func solve(lhs int, rhs []int) int {
 	return 0
 }
 
-func parcioalSolve(nums []int) []int {
+func partlySolve(nums []int) []int {
 	results := []int{0}
 	for i := 0; i < len(nums); i++ {
-		temp := make([]int, len(results))
-		copy(temp, results)
-		temp2 := make([]int, len(results))
-		copy(temp2, results)
+		multiply := make([]int, len(results))
+		copy(multiply, results)
+		concat := make([]int, len(results))
+		copy(concat, results)
 		for j := 0; j < len(results); j++ {
 			results[j] += nums[i]
-			temp[j] *= nums[i] * 1
-			temp2[j], _ = strconv.Atoi(strconv.Itoa(temp2[j]) + strconv.Itoa(nums[i]))
+			multiply[j] *= nums[i] * 1
+			concat[j], _ = strconv.Atoi(strconv.Itoa(concat[j]) + strconv.Itoa(nums[i]))
 
 		}
-		results = append(results, temp...)
-		results = append(results, temp2...)
+		results = append(results, multiply...)
+		results = append(results, concat...)
 	}
 	return results
 }
